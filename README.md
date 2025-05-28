@@ -1,0 +1,1 @@
+Tamagotchi project by Shawn Agarwal
