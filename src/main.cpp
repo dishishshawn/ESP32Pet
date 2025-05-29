@@ -9,8 +9,8 @@
 
 TFT_eSPI tft = TFT_eSPI();
 
-#define LEFT 13
-#define RIGHT 14
+#define LEFT 14
+#define RIGHT 13
 #define SELECT 12
 #define WAKE_UP_PIN 34
 
@@ -151,7 +151,7 @@ void stateSelection() {
 
 void changeState(const char* section){
     tft.drawRoundRect(0, 0, 128, 160, 3, TFT_WHITE); // quick outline
-    delay(40);
+    delay(200);
     tft.drawRoundRect(0, 0, 128, 160, 3, TFT_BLACK); // erase it  
 
     Serial.println(section);
@@ -181,7 +181,6 @@ void changeState(const char* section){
         displayCut();
     } else if(strcmp(section, "Dress") == 0){
         tft.fillRect(0, 16, 128, 48, TFT_BLACK);
-        gotchi.updateHappiness(2);
         displayMenuDress();
         state = 2;
     } else if(strcmp(section, "Home") == 0){
@@ -336,11 +335,12 @@ void displayMenuFunc()
 //   tft.drawBitmap(menu.x, y + 3, menuIcons[menu.nextSection], 10, 10, 1);
 // }
 
+
 void displayMenuDress(){
   tft.fillRect(1, 17, 127, 47, TFT_BLACK);
 
   // PREV CLOTHING
-  tft.drawBitmap(3, 17, menuDressIcons[menuDress.prevSection], 32, 46, TFT_WHITE);
+  tft.drawBitmap(3, 17, menuDressIcons[menuDress.prev()], 32, 46, TFT_WHITE);
 
   // DISPLAY ALE WITH CHANGING CLOTHING
   tft.drawRoundRect(39, 16, 50, 48, 5, TFT_WHITE);
@@ -370,7 +370,7 @@ void displayMenuDress(){
   
   
   // NEXT CLOTHING
-  tft.drawBitmap(93, 17, menuDressIcons[menuDress.nextSection], 32, 46, TFT_WHITE);
+  tft.drawBitmap(93, 17, menuDressIcons[menuDress.next()], 32, 46, TFT_WHITE);
 }
 
 void displayGotchi(){
@@ -450,7 +450,7 @@ void displayEat(){
   int startX = 30;
   int startY = 20;
 
-  tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Pulisco lo schermo
+  tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Clear screen
 
   // Frame 1
   selectEatFrame(startX,startY,1);
@@ -521,7 +521,7 @@ void displayPlay(){
   
   for (int i = 0; i <= loop; i++) {
     // Frame 1
-    tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Pulisco lo schermo 
+    tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Clear Screen
     tft.drawBitmap(startX, startY, play_anim_1, 27, 48, TFT_WHITE);
      
     delay(200);
@@ -566,7 +566,7 @@ void displayCut(){
   
   for (int i = 0; i <= loop; i++) {
     // Frame 1
-    tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Pulisco lo schermo 
+    tft.fillRect(0, 16, 128, 48, TFT_BLACK); // Clear Screen 
     tft.drawBitmap(startX, startY, cut_anim_1, 37, 28, TFT_WHITE);
      
     delay(500);
