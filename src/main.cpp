@@ -8,6 +8,7 @@
 #include "sprites.h"
 
 TFT_eSPI tft = TFT_eSPI();
+hw_timer_t * timer = NULL;
 
 #define LEFT 14
 #define RIGHT 13
@@ -29,6 +30,7 @@ void displayCut();
 void displayAge();
 void displayMenuDress();
 void displayStats();
+// void IRAM_ATTR watchdogCallback();
 
 #define BAR_W 16
 inline void clearOutside() {
@@ -40,7 +42,12 @@ inline void clearOutside() {
 
 void setup() {
     Serial.begin(115200);
+    EEPROM.begin(32);
     Serial.println("Boot");
+    esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
+    Serial.print("Wake reason: ");
+    Serial.println(wakeup_reason);
+
     tft.init(INITR_GREENTAB);
     tft.fillScreen(TFT_BLACK);
     tft.setRotation(1);
@@ -59,10 +66,24 @@ void setup() {
     pinMode(SELECT, INPUT_PULLDOWN);
     pinMode(WAKE_UP_PIN, INPUT_PULLUP);
 
-    esp_task_wdt_init(40, true); 
-    esp_task_wdt_add(NULL); 
+    // timer = timerBegin(0, 80, true); 
+    // timerAttachInterrupt(timer, &watchdogCallback, true);
+    // timerAlarmWrite(timer, 1000000, true); // 1 second
+    // timerAlarmEnable(timer);
+
+
+    // esp_task_wdt_init(40, true); 
+    // esp_task_wdt_add(NULL); 
 
     Serial.println("Ready to start");
+    Serial.printf("EEPROM Read:\n Sleep: %d\n Hunger: %d\n Happiness: %d\n Age: %d\n Beard: %d\n Clothing: %d\n",
+    EEPROM.read(1),
+    EEPROM.read(3),
+    EEPROM.read(2),
+    EEPROM.read(10),
+    EEPROM.read(5),
+    EEPROM.read(7)
+);
 }
 
 // States
@@ -117,7 +138,7 @@ int sleepLevel = EEPROM.read(1);
 int happiness = EEPROM.read(2);
 int hunger = EEPROM.read(3);
 
-int var_type = 0; // Data type to be retrieved from EEPROM (ints)
+int var_type = 0;
 int age = EEPROM.get(10, var_type);
 int beardLength = EEPROM.read(5);
 int expression = EEPROM.read(6);
@@ -125,12 +146,37 @@ int clothing = EEPROM.read(7);
 
 Gotchi gotchi(sleeping, sleepLevel, happiness, hunger, age, beardLength, expression, clothing);
 
-int sec = 0;
+unsigned long lastInteraction = 0;
+const unsigned long timeoutDuration = 40000;
 bool pressed = false;
 int frameCount = 0;
 int spriteOffset = -1;
 
 void loop() {
+    if (millis() - lastInteraction >= timeoutDuration) {
+    Serial.println("No interaction for 40 seconds. Going to sleep...");
+
+    // Save everything before sleeping
+    EEPROM.write(0, gotchi.sleeping);
+    EEPROM.write(1, gotchi.sleep);
+    EEPROM.write(2, gotchi.happiness);
+    EEPROM.write(3, gotchi.hunger);
+    EEPROM.put(10, gotchi.age);
+    EEPROM.write(5, gotchi.beardLength);
+    EEPROM.write(6, gotchi.expression);
+    EEPROM.write(7, gotchi.clothing);
+    EEPROM.commit();
+
+    tft.fillScreen(TFT_BLACK);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
+    tft.setTextSize(2);
+    tft.setCursor(20, 30);
+    tft.println("Sleeping...");
+    delay(2000);
+
+    esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW);
+    esp_deep_sleep_start();
+    }
     stateSelection();
     delay(10);
 }
@@ -151,6 +197,8 @@ void stateSelection() {
 
 void changeState(const char* section){
     tft.drawRoundRect(0, 0, 128, 160, 3, TFT_WHITE); // quick outline
+    EEPROM.commit();
+    lastInteraction = millis();
     delay(200);
     tft.drawRoundRect(0, 0, 128, 160, 3, TFT_BLACK); // erase it  
 
@@ -646,28 +694,29 @@ void displayStats(){
 }
 
 // Timer
-int hour = 3600; // 1 hour in seconds
-void IRAM_ATTR watchdogCallback() {
-    sec++;
-    Serial.print("sec: ");
-    Serial.println(sec);
+// int hour = 40; 
+// void IRAM_ATTR watchdogCallback() {
+//     sec++;
+//     Serial.print("sec: ");
+//     Serial.println(sec);
 
-    if (sec > hour) {
-        sec = 0;
+//     if (sec > hour) {
+//         sec = 0;
 
-        gotchi.updateAge();
-        Serial.println(gotchi.age);
+//         gotchi.updateAge();
+//         gotchi.updateHappiness(-1);
+//         gotchi.updateHunger(-1);
+//         gotchi.updateBeardLength(gotchi.beardLength + 1);
+//         gotchi.updateSleep(gotchi.sleeping ? 3 : -1);
 
-        gotchi.updateHappiness(-1);
-        gotchi.updateHunger(-1);
-        gotchi.updateBeardLength(gotchi.beardLength + 1);
-        if (gotchi.sleeping) {
-            gotchi.updateSleep(3);
-        } else {
-            gotchi.updateSleep(-1);
-        }
-    }
-}
+//         // Save everything and go to sleep
+//         EEPROM.commit();
+
+//         Serial.println("Going to deep sleep...");
+//         esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW);
+//         esp_deep_sleep_start();
+//     }
+// }
 
 
 void turnOn() {
@@ -693,6 +742,8 @@ void turnOff() {
     EEPROM.write(5, gotchi.beardLength);
     EEPROM.write(6, gotchi.expression);
     EEPROM.write(7, gotchi.clothing);
+    EEPROM.commit(); 
+    Serial.println("Data saved to EEPROM");
 
     Serial.println("Entering deep sleep...");
     // esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW); // Cast WAKE_UP_PIN to gpio_num_t
