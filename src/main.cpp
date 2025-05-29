@@ -97,7 +97,7 @@ void setup() {
     pinMode(LEFT, INPUT_PULLDOWN);
     pinMode(RIGHT, INPUT_PULLDOWN);
     pinMode(SELECT, INPUT_PULLDOWN);
-    pinMode(WAKE_UP_PIN, INPUT_PULLUP);
+    pinMode(WAKE_UP_PIN, INPUT_PULLDOWN);
 
     frameCount = 50;
     displayGotchi();
@@ -164,31 +164,34 @@ const unsigned char* menuDressIcons[] = {
 };
 
 void loop() {
-    if (millis() - lastInteraction >= timeoutDuration) {
-    Serial.println("No interaction for 40 seconds. Going to sleep...");
+    if (digitalRead(WAKE_UP_PIN) == HIGH) {
+        Serial.println("Power button pressed. Going to sleep...");
+        
+        // Save everything
+        gotchi.updateSleeping();  // optional, to show it's sleeping
+        EEPROM.write(0, gotchi.sleeping);
+        EEPROM.write(1, gotchi.sleep);
+        EEPROM.write(2, gotchi.happiness);
+        EEPROM.write(3, gotchi.hunger);
+        EEPROM.put(10, gotchi.age);
+        EEPROM.write(5, gotchi.beardLength);
+        EEPROM.write(6, gotchi.expression);
+        EEPROM.write(7, gotchi.clothing);
+        EEPROM.commit();
 
-    // Save everything before sleeping
-    EEPROM.write(0, gotchi.sleeping);
-    EEPROM.write(1, gotchi.sleep);
-    EEPROM.write(2, gotchi.happiness);
-    EEPROM.write(3, gotchi.hunger);
-    EEPROM.put(10, gotchi.age);
-    EEPROM.write(5, gotchi.beardLength);
-    EEPROM.write(6, gotchi.expression);
-    EEPROM.write(7, gotchi.clothing);
-    EEPROM.commit();
+        delay(500); // debounce
+        tft.fillScreen(TFT_BLACK);
+        tft.setCursor(20, 20);
+        tft.setTextSize(2);
+        tft.setTextColor(TFT_WHITE);
+        tft.println("Goodnight...");
 
-    tft.fillScreen(TFT_BLACK);
-    tft.setTextColor(TFT_WHITE, TFT_BLACK);
-    tft.setTextSize(2);
-    tft.setCursor(20, 30);
-    tft.println("Sleeping...");
-    delay(2000);
-
-    esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW);
-    esp_deep_sleep_start();
+        delay(2000);
+        esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW);
+        esp_deep_sleep_start();
     }
-    stateSelection();
+
+    stateSelection(); 
     delay(10);
 }
 
