@@ -21,60 +21,80 @@ Gotchi::Gotchi(bool sleeping, int sleep, int hunger, int happiness, int age, int
 
 // Sleeping and Waking up function
 void Gotchi::updateSleeping() {
+    bool old = sleeping;
     sleeping = !sleeping; // change sleep state
-    EEPROM.write(0, sleeping);
+    if (sleeping != old) {
+        EEPROM.write(0, sleeping);
+        EEPROM.commit();
+    }
 }
 
 // Functions to update stats
 
 void Gotchi::updateSleep(int sleepVal) {
+    int old = sleep;
     sleep += sleepVal;
-    if(sleep < 0){
-        sleep = 0;
-    } else if(sleep > 24) {
-        sleep = 24;
+    sleep = constrain(sleep, 0, 24);
+    if (sleep != old) {
+        EEPROM.write(1, sleep);
+        EEPROM.commit();
     }
-    EEPROM.write(1, sleep);
 }
 
 void Gotchi::updateHappiness(int happinessVal) {
+    int old = happiness;
     happiness += happinessVal;
-    if(happiness < 0){
-        happiness = 0;
-    } else if(happiness > 24) {
-        happiness = 24;
+    happiness = constrain(happiness, 0, 24);
+    if (happiness != old) {
+        EEPROM.write(2, happiness);
+        EEPROM.commit();
     }
-    EEPROM.write(2, happiness);
 }
 
 void Gotchi::updateHunger(int hungerVal) {
+    int old = hunger;
     hunger += hungerVal;
-    if(hunger < 0){
-        hunger = 0;
-    } else if(hunger > 24) {
-        hunger = 24;
+    hunger = constrain(hunger, 0, 24);
+    if (hunger != old) {
+        EEPROM.write(3, hunger);
+        EEPROM.commit();
     }
-    EEPROM.write(3, hunger);
 }
 
 void Gotchi::updateAge() {
+    int old = age;
     age++;
-    EEPROM.put(10, age);
+    if (age != old) {
+        EEPROM.put(10, age);
+        EEPROM.commit();
+    }
 }
 
 void Gotchi::updateBeardLength(int newBeardLength) {
-    beardLength = newBeardLength;
-    EEPROM.write(5, beardLength);
+    int old = beardLength;
+    beardLength = constrain(newBeardLength, 0, 24);
+    if (beardLength != old) {
+        EEPROM.write(5, beardLength);
+        EEPROM.commit();
+    }
 }
 
 void Gotchi::updateExpression(int newExpression) {
+    int old = expression;
     expression = newExpression;
-    EEPROM.write(6, expression);
+    if (expression != old) {
+        EEPROM.write(6, expression);
+        EEPROM.commit();
+    }
 }
 
 void Gotchi::updateClothing(int newClothing) {
+    int old = clothing;
     clothing = newClothing;
-    EEPROM.write(7, clothing);
+    if (clothing != old) {
+        EEPROM.write(7, clothing);
+        EEPROM.commit();
+    }
 }
 
 // Values to pixels

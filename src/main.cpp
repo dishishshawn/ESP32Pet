@@ -32,6 +32,27 @@ void displayMenuDress();
 void displayStats();
 // void IRAM_ATTR watchdogCallback();
 
+ScrollMenu menu(58, 32, 6);
+ScrollMenu menuDress(58, 32, 5);
+char activeState[20] = "Home";
+
+bool sleeping;
+int sleepLevel;
+int happiness;
+int hunger;
+int age;
+int beardLength;
+int expression;
+int clothing;
+
+Gotchi gotchi(false, 0, 0, 0, 0, 0, 0, 0);
+
+unsigned long lastInteraction = 0;
+const unsigned long timeoutDuration = 10000;
+bool pressed = false;
+int frameCount = 0;
+int spriteOffset = -1;
+
 #define BAR_W 16
 inline void clearOutside() {
     tft.resetViewport();                       // turn clipping OFF
@@ -44,9 +65,21 @@ void setup() {
     Serial.begin(115200);
     EEPROM.begin(32);
     Serial.println("Boot");
+
     esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
     Serial.print("Wake reason: ");
     Serial.println(wakeup_reason);
+
+    sleeping     = EEPROM.read(0);
+    sleepLevel   = EEPROM.read(1);
+    happiness    = EEPROM.read(2);
+    hunger       = EEPROM.read(3);
+    EEPROM.get(10, age);
+    beardLength  = EEPROM.read(5);
+    expression   = EEPROM.read(6);
+    clothing     = EEPROM.read(7);
+
+    gotchi = Gotchi(sleeping, sleepLevel, hunger, happiness, age, beardLength, expression, clothing);
 
     tft.init(INITR_GREENTAB);
     tft.fillScreen(TFT_BLACK);
@@ -66,6 +99,11 @@ void setup() {
     pinMode(SELECT, INPUT_PULLDOWN);
     pinMode(WAKE_UP_PIN, INPUT_PULLUP);
 
+    frameCount = 50;
+    displayGotchi();
+    displayMenuFunc();
+    displayStats();
+
     // timer = timerBegin(0, 80, true); 
     // timerAttachInterrupt(timer, &watchdogCallback, true);
     // timerAlarmWrite(timer, 1000000, true); // 1 second
@@ -75,15 +113,12 @@ void setup() {
     // esp_task_wdt_init(40, true); 
     // esp_task_wdt_add(NULL); 
 
+    int debugAge = 0;
+    EEPROM.get(10, debugAge);
+
     Serial.println("Ready to start");
     Serial.printf("EEPROM Read:\n Sleep: %d\n Hunger: %d\n Happiness: %d\n Age: %d\n Beard: %d\n Clothing: %d\n",
-    EEPROM.read(1),
-    EEPROM.read(3),
-    EEPROM.read(2),
-    EEPROM.read(10),
-    EEPROM.read(5),
-    EEPROM.read(7)
-);
+        sleepLevel, hunger, happiness, age, beardLength, clothing);
 }
 
 // States
@@ -127,30 +162,6 @@ const unsigned char* menuDressIcons[] = {
     myBitmapbody_03,
     myBitmapbody_04
 };
-
-ScrollMenu menu(58, 32, 6);
-ScrollMenu menuDress(58, 32, 5);
-char activeState[20] = "Home";
-
-bool sleeping = EEPROM.read(0);
-
-int sleepLevel = EEPROM.read(1);
-int happiness = EEPROM.read(2);
-int hunger = EEPROM.read(3);
-
-int var_type = 0;
-int age = EEPROM.get(10, var_type);
-int beardLength = EEPROM.read(5);
-int expression = EEPROM.read(6);
-int clothing = EEPROM.read(7);
-
-Gotchi gotchi(sleeping, sleepLevel, happiness, hunger, age, beardLength, expression, clothing);
-
-unsigned long lastInteraction = 0;
-const unsigned long timeoutDuration = 40000;
-bool pressed = false;
-int frameCount = 0;
-int spriteOffset = -1;
 
 void loop() {
     if (millis() - lastInteraction >= timeoutDuration) {
