@@ -1,8 +1,14 @@
 #include <Arduino.h>
 #include "scroll_menu.h"
+#include <TFT_eSPI.h>
+
+#ifndef GFX
+extern TFT_eSprite canvas;
+#define GFX canvas
+#endif
 
 ScrollMenu::ScrollMenu(int x, int y, int menuSize) {
-    this->menuSize = menuSize - 1;
+    this->menuSize = menuSize;
     this->x = x;
     this->y = y;
 }

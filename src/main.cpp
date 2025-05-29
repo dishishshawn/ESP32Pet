@@ -30,11 +30,27 @@ void displayAge();
 void displayMenuDress();
 void displayStats();
 
+#define BAR_W 16
+inline void clearOutside() {
+    tft.resetViewport();                       // turn clipping OFF
+    tft.fillRect(0, 0, BAR_W, 128, TFT_BLACK);           // left bar
+    tft.fillRect(160-BAR_W, 0, BAR_W, 128, TFT_BLACK);   // right bar
+    tft.setViewport(16, 0, 143, 127, true);    // clipping ON again
+}
+
 void setup() {
     Serial.begin(115200);
     Serial.println("Boot");
-    tft.init();
+    tft.init(INITR_GREENTAB);
+    tft.fillScreen(TFT_BLACK);
     tft.setRotation(1);
+
+    bool flip = true;
+    int x0 = 16;
+    int y0 = 0;
+    int x1 = x0 + 128 - 1;
+    int y1 = y0 + 128 - 1;
+    tft.setViewport(x0, y0, x1, y1, flip); // Set the viewport to the full screen
 
     tft.fillScreen(TFT_BLACK);
 
@@ -178,6 +194,7 @@ void changeState(const char* section){
     for (int i = 0; i < 20; i++){
     activeState[i] = section[i]; 
     }
+    pressed = false;
     displayStats();
 }
 
@@ -220,25 +237,35 @@ void sleepFunc() {
 }
 
 void dressFunc() {
-    if(!pressed) {
-        if(digitalRead(SELECT) == HIGH) {
+
+    if (!pressed) {
+
+        if (digitalRead(SELECT) == HIGH) {          // SELECT
             pressed = true;
-            // if(menuDress.activeSection != 0) {
-            //     gotchi.updateClothing(menuDress.activeSection - 1);
-            // }
-            // changeState("Home");
-            changeState(menuSections[menu.activeSection]);
-        } else if(digitalRead(LEFT) == HIGH) {
+
+            if (menuDress.activeSection == 0) {     // “← Home”
+                changeState("Home");
+            } else {                                // one of the outfits
+                gotchi.updateClothing(menuDress.activeSection - 1);
+                changeState("Home");
+            }
+
+        } else if (digitalRead(LEFT) == HIGH) {     // LEFT
+            pressed = true;
             menuDress.moveLeft();
             displayMenuDress();
+
+        } else if (digitalRead(RIGHT) == HIGH) {    // RIGHT
             pressed = true;
-        } else if(digitalRead(RIGHT) == HIGH) {
             menuDress.moveRight();
             displayMenuDress();
-            pressed = true;
-        } else if(digitalRead(SELECT) == LOW && digitalRead(LEFT) == LOW && digitalRead(RIGHT) == LOW) {
-            pressed = false;
         }
+    }
+
+    else if (digitalRead(SELECT) == LOW &&
+             digitalRead(LEFT)   == LOW &&
+             digitalRead(RIGHT)  == LOW) {
+        pressed = false;
     }
 }
 
@@ -253,33 +280,61 @@ void statsFunc(){
   }  
 }
 
-void displayMenuFunc(){
-  int y = 17;
-  int height = 16;
+void displayMenuFunc()
+{
+    int y = 17;
+    const int rowH = 16;
 
-  tft.fillRect(51, 17, 77, 47, TFT_BLACK);
-  tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  
-  tft.setTextSize(1);
+    tft.fillRect(51, 17, 77, 47, TFT_BLACK);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
+    tft.setTextSize(1);
 
-  //PREV SECTION
-  tft.setCursor(menu.x + 19, y + 4);
-  tft.println(menuSections[menu.prevSection]);
-  tft.drawBitmap(menu.x, y + 3, menuIcons[menu.prevSection], 10, 10, 1);
+    /* ── previous ─────────────────────────── */
+    tft.setCursor(menu.x + 19, y + 4);
+    tft.println(menuSections[ menu.prev() ]);
+    tft.drawBitmap(menu.x, y + 3, menuIcons[ menu.prev() ], 10, 10, 1);
 
-  //ACTIVE SECTION
-  y = y + height;
-  tft.drawRoundRect(menu.x - 5, y, 73, 16, 3, TFT_WHITE);
-  tft.setCursor(menu.x + 19, y + 4);
-  tft.println(menuSections[menu.activeSection]);
-  tft.drawBitmap(menu.x, y + 3, menuIcons[menu.activeSection], 10, 10, 1);
+    /* ── active ───────────────────────────── */
+    y += rowH;
+    tft.drawRoundRect(menu.x - 5, y, 73, rowH, 3, TFT_WHITE);
+    tft.setCursor(menu.x + 19, y + 4);
+    tft.println(menuSections[ menu.activeSection ]);
+    tft.drawBitmap(menu.x, y + 3, menuIcons[ menu.activeSection ], 10, 10, 1);
 
-  //NEXT SECTION
-  y = y + height;
-  tft.setCursor(menu.x + 19, y + 4);
-  tft.println(menuSections[menu.nextSection]);
-  tft.drawBitmap(menu.x, y + 3, menuIcons[menu.nextSection], 10, 10, 1);
+    /* ── next ─────────────────────────────── */
+    y += rowH;
+    tft.setCursor(menu.x + 19, y + 4);
+    tft.println(menuSections[ menu.next() ]);
+    tft.drawBitmap(menu.x, y + 3, menuIcons[ menu.next() ], 10, 10, 1);
 }
+
+// void displayMenuFunc(){
+//   int y = 17;
+//   int height = 16;
+
+//   tft.fillRect(51, 17, 77, 47, TFT_BLACK);
+//   tft.setTextColor(TFT_WHITE, TFT_BLACK);
+  
+//   tft.setTextSize(1);
+
+//   //PREV SECTION
+//   tft.setCursor(menu.x + 19, y + 4);
+//   tft.println(menuSections[menu.prev()]);
+//   tft.drawBitmap(menu.x, y + 3, menuIcons[menu.prev()], 10, 10, 1);
+
+//   //ACTIVE SECTION
+//   y = y + height;
+//   tft.drawRoundRect(menu.x - 5, y, 73, 16, 3, TFT_WHITE);
+//   tft.setCursor(menu.x + 19, y + 4);
+//   tft.println(menuSections[menu.next()]);
+//   tft.drawBitmap(menu.x, y + 3, menuIcons[menu.next()], 10, 10, 1);
+
+//   //NEXT SECTION
+//   y = y + height;
+//   tft.setCursor(menu.x + 19, y + 4);
+//   tft.println(menuSections[menu.nextSection]);
+//   tft.drawBitmap(menu.x, y + 3, menuIcons[menu.nextSection], 10, 10, 1);
+// }
 
 void displayMenuDress(){
   tft.fillRect(1, 17, 127, 47, TFT_BLACK);

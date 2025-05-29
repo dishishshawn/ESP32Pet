@@ -1,6 +1,12 @@
 #include <Arduino.h>
 #include <EEPROM.h>
+#include <TFT_eSPI.h>
 #include "gotchi.h"
+
+#ifndef GFX
+extern TFT_eSprite canvas;
+#define GFX canvas
+#endif
 
 Gotchi::Gotchi(bool sleeping, int sleep, int hunger, int happiness, int age, int beardLength, int expression, int clothing) {
     this->sleeping = sleeping;
