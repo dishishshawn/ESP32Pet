@@ -36,14 +36,14 @@ void setup() {
     tft.init();
     tft.setRotation(1);
 
-    tft.fillScreen(TFT_WHITE);
+    tft.fillScreen(TFT_BLACK);
 
-    pinMode(LEFT, INPUT_PULLUP);
-    pinMode(RIGHT, INPUT_PULLUP);
+    pinMode(LEFT, INPUT_PULLDOWN);
+    pinMode(RIGHT, INPUT_PULLDOWN);
     pinMode(SELECT, INPUT_PULLDOWN);
     pinMode(WAKE_UP_PIN, INPUT_PULLUP);
 
-    esp_task_wdt_init(5, true); 
+    esp_task_wdt_init(40, true); 
     esp_task_wdt_add(NULL); 
 
     Serial.println("Ready to start");
@@ -134,9 +134,9 @@ void stateSelection() {
 // State functions
 
 void changeState(const char* section){
-    tft.invertDisplay(true);
-    delay(50);
-    tft.invertDisplay(false);
+    tft.drawRoundRect(0, 0, 128, 160, 3, TFT_WHITE); // quick outline
+    delay(40);
+    tft.drawRoundRect(0, 0, 128, 160, 3, TFT_BLACK); // erase it  
 
     Serial.println(section);
     if(strcmp(section, "Sleep") == 0){
@@ -183,19 +183,19 @@ void changeState(const char* section){
 
 void homeFunc() {
     if(pressed == false) {
-        if(digitalRead(SELECT) == LOW) {
+        if(digitalRead(SELECT) == HIGH) {
             pressed = true;
             changeState(menuSections[menu.activeSection]);
-    } else if(digitalRead(LEFT) == LOW) {
+    } else if(digitalRead(LEFT) == HIGH) {
             pressed = true;
             menu.moveLeft();
             displayMenuFunc();
-        } else if(digitalRead(RIGHT) == LOW) {
+        } else if(digitalRead(RIGHT) == HIGH) {
             pressed = true;
             menu.moveRight();
             displayMenuFunc();
         }
-    } else if(digitalRead(SELECT) == HIGH && digitalRead(LEFT) == HIGH && digitalRead(RIGHT) == HIGH) {
+    } else if(digitalRead(SELECT) == LOW && digitalRead(LEFT) == LOW && digitalRead(RIGHT) == LOW) {
             pressed = false;
         }
     displayGotchi();
@@ -207,12 +207,12 @@ void sleepFunc() {
     }
 
     if(!pressed) {
-        if(digitalRead(SELECT) == LOW) {
+        if(digitalRead(SELECT) == HIGH) {
             pressed = true;
             gotchi.updateSleeping();
             gotchi.updateHappiness(-3);
             changeState("Home");
-        } else if(digitalRead(SELECT) == HIGH && digitalRead(LEFT) == HIGH && digitalRead(RIGHT) == HIGH) {
+        } else if(digitalRead(SELECT) == LOW && digitalRead(LEFT) == LOW && digitalRead(RIGHT) == LOW) {
         pressed = false;
     }
     displaySleep();
@@ -221,21 +221,22 @@ void sleepFunc() {
 
 void dressFunc() {
     if(!pressed) {
-        if(digitalRead(SELECT) == LOW) {
+        if(digitalRead(SELECT) == HIGH) {
             pressed = true;
-            if(menuDress.activeSection != 0) {
-                gotchi.updateClothing(menuDress.activeSection - 1);
-            }
-            changeState("Home");
-        } else if(digitalRead(LEFT) == LOW) {
+            // if(menuDress.activeSection != 0) {
+            //     gotchi.updateClothing(menuDress.activeSection - 1);
+            // }
+            // changeState("Home");
+            changeState(menuSections[menu.activeSection]);
+        } else if(digitalRead(LEFT) == HIGH) {
             menuDress.moveLeft();
             displayMenuDress();
             pressed = true;
-        } else if(digitalRead(RIGHT) == LOW) {
+        } else if(digitalRead(RIGHT) == HIGH) {
             menuDress.moveRight();
             displayMenuDress();
             pressed = true;
-        } else if(digitalRead(SELECT) == HIGH && digitalRead(LEFT) == HIGH && digitalRead(RIGHT) == HIGH) {
+        } else if(digitalRead(SELECT) == LOW && digitalRead(LEFT) == LOW && digitalRead(RIGHT) == LOW) {
             pressed = false;
         }
     }
@@ -243,11 +244,11 @@ void dressFunc() {
 
 void statsFunc(){
   if(pressed == false){
-    if(digitalRead(SELECT) == LOW){
+    if(digitalRead(SELECT) == HIGH){
       pressed = true;
       changeState("Home");    
     }
-  }else if(digitalRead(SELECT) == HIGH && digitalRead(LEFT) == HIGH && digitalRead(RIGHT) == HIGH){
+  }else if(digitalRead(SELECT) == LOW && digitalRead(LEFT) == LOW && digitalRead(RIGHT) == LOW){
     pressed = false;
   }  
 }
@@ -447,6 +448,7 @@ void displayEat(){
   tft.fillRect(45 + startX, 16, 55 + startX, 48, TFT_BLACK);
   selectEatFrame(startX,startY,1);
   
+  esp_task_wdt_reset();
 
   delay(500);
   delay(500);
@@ -539,7 +541,7 @@ void displayAge(){
   tft.setTextColor(TFT_BLACK, TFT_WHITE);
   tft.print("Name");
   tft.setTextColor(TFT_WHITE);
-  tft.println(" Asnelandre");
+  tft.println(" Shawn");
   
   tft.setCursor(10,32);
   tft.setTextColor(TFT_BLACK, TFT_WHITE);
@@ -553,7 +555,7 @@ void displayAge(){
   tft.setTextColor(TFT_BLACK, TFT_WHITE);
   tft.print("Weight");
   tft.setTextColor(TFT_WHITE);
-  tft.println(" 67 kg");
+  tft.println(" 88 kg");
 }
 
 
@@ -638,6 +640,6 @@ void turnOff() {
     EEPROM.write(7, gotchi.clothing);
 
     Serial.println("Entering deep sleep...");
-    esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW); // Cast WAKE_UP_PIN to gpio_num_t
-    esp_deep_sleep_start();
+    // esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(WAKE_UP_PIN), LOW); // Cast WAKE_UP_PIN to gpio_num_t
+    // esp_deep_sleep_start();
 }

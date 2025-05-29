@@ -19,8 +19,11 @@ class ScrollMenu {
     int activeSection = 1;
     int nextSection = 2;
 
-    void moveLeft();
-    void moveRight();
+    int prev() const { return (activeSection + menuSize - 1) % menuSize; }
+    int next() const { return (activeSection + 1) % menuSize; }
+
+    void moveRight() { activeSection = next(); }
+    void moveLeft() { activeSection = prev(); }
 };
 
 #endif
