@@ -17,8 +17,8 @@ Stats are persistant (saved to EEPROM)
 - 4x momentary push buttons
 
 ## Applications
-KiCAD
-Arduino IDE or PlatformIO
+- KiCAD
+- Arduino IDE or PlatformIO
 
 ## Demo
 
