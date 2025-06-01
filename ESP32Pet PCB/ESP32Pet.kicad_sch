@@ -1,0 +1,266 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "397abc7c-300b-4d6f-9337-33290484b5ae")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 111.76 95.25)
+		(size 49.53 29.21)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "18124505-9afa-4ea0-b685-465ae24a0e69")
+		(property "Sheetname" "OnOff Logic"
+			(at 111.76 94.5384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "off_off_logic.kicad_sch"
+			(at 111.76 125.0446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 167.64 52.07)
+		(size 52.07 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "59951854-b551-47f5-ac04-53031cec35b0")
+		(property "Sheetname" "macros"
+			(at 167.64 51.3584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "macros.kicad_sch"
+			(at 167.64 80.5946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 110.49 52.07)
+		(size 50.8 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6de349e7-ced3-4959-8be3-0b8312a7c7a3")
+		(property "Sheetname" "TFT LCD"
+			(at 110.49 51.3584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "tft_lcd.kicad_sch"
+			(at 110.49 80.5946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 52.07 95.25)
+		(size 50.8 29.21)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "96da55df-4a44-41f7-a6e8-307058d63992")
+		(property "Sheetname" "Power"
+			(at 52.07 94.5384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power.kicad_sch"
+			(at 52.07 125.0446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 170.18 95.25)
+		(size 50.8 30.48)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f24596cb-28b0-4ddb-b699-b196e7233dd5")
+		(property "Sheetname" "Battery Percent Logic"
+			(at 170.18 94.5384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "battery_logic.kicad_sch"
+			(at 170.18 126.3146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 52.07 52.07)
+		(size 50.8 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f6f3f8e7-497e-4fdc-8903-b1149d2e59fb")
+		(property "Sheetname" "microcontroller"
+			(at 52.07 51.3584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "microcontroller.kicad_sch"
+			(at 52.07 80.5946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESP32Pet"
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
