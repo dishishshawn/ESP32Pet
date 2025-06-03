@@ -917,16 +917,6 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 97.79) (xy 124.46 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b67dacab-b326-409b-8ea8-949740ad22d3")
-	)
-	(wire
-		(pts
 			(xy 93.98 85.09) (xy 90.17 85.09)
 		)
 		(stroke
@@ -1090,28 +1080,6 @@
 		(uuid "ea661e09-0d1b-4166-a926-55a7345f7c1a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 140.9917 69.85 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "BTN_SELECT"
-		(shape input)
-		(at 129.54 97.79 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "ee95e042-e929-4a28-b8b1-9e57fffa855d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 143.8341 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
