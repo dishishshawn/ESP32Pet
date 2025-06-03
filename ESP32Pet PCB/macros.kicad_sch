@@ -960,7 +960,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SparkFun-Switch:Push_PTH_12x12mm"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H5mm"
 			(at 91.44 92.71 0)
 			(effects
 				(font
@@ -1302,7 +1302,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SparkFun-Switch:Push_PTH_12x12mm"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H5mm"
 			(at 110.49 92.71 0)
 			(effects
 				(font
@@ -1388,7 +1388,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SparkFun-Switch:Push_PTH_12x12mm"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm_H5mm"
 			(at 128.27 92.71 0)
 			(effects
 				(font

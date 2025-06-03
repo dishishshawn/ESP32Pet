@@ -867,6 +867,16 @@
 	)
 	(wire
 		(pts
+			(xy 128.27 69.85) (xy 124.46 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e777a07-d084-488b-b227-f2cdf3c16f98")
+	)
+	(wire
+		(pts
 			(xy 90.17 95.25) (xy 93.98 95.25)
 		)
 		(stroke
@@ -934,16 +944,6 @@
 			(type default)
 		)
 		(uuid "ef9b8739-7316-4300-89fc-c26936ac3b5c")
-	)
-	(wire
-		(pts
-			(xy 128.27 69.85) (xy 124.46 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f28780da-47f0-46e9-b8b7-a85351513820")
 	)
 	(global_label "BTN_RIGHT"
 		(shape input)
@@ -1087,7 +1087,7 @@
 			)
 			(justify left)
 		)
-		(uuid "c65ea891-5c4d-4f66-90d2-582fb4c968f5")
+		(uuid "ea661e09-0d1b-4166-a926-55a7345f7c1a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 140.9917 69.85 0)
 			(effects
@@ -1191,7 +1191,7 @@
 				)
 			)
 		)
-		(property "Footprint" "ESP32-DEVKIT-V1:MODULE_ESP32_DEVKIT_V1"
+		(property "Footprint" "ESP32 Devkit:MODULE_ESP32_DEVKIT_V1"
 			(at 109.22 80.01 0)
 			(effects
 				(font

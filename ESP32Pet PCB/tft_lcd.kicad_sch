@@ -12,23 +12,25 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U4"
-				(at -1.8415 20.32 0)
+			(property "Reference" "U"
+				(at -6.35 16.002 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left bottom)
 				)
 			)
 			(property "Value" "TFT LCD"
-				(at -1.8415 17.78 0)
+				(at -6.35 -17.78 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left bottom)
 				)
 			)
-			(property "Footprint" "ST7735:TFT LCD 1.8inch 128x160 w_ SD Card Slot"
+			(property "Footprint" ""
 				(at -33.02 -22.606 0)
 				(do_not_autoplace)
 				(effects
@@ -201,7 +203,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -219,7 +221,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -237,7 +239,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -255,7 +257,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -273,7 +275,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -291,7 +293,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -299,7 +301,7 @@
 						)
 					)
 				)
-				(pin input line
+				(pin output line
 					(at -8.89 -8.89 0)
 					(length 2.54)
 					(name "RST"
@@ -309,7 +311,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -327,7 +329,7 @@
 							)
 						)
 					)
-					(number ""
+					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -444,7 +446,7 @@
 		(at 168.91 80.01)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "25bd734b-19df-4197-9c6c-978718757763")
+		(uuid "d3b9156d-68f2-4457-b8b3-35387f40de75")
 	)
 	(wire
 		(pts
@@ -475,6 +477,28 @@
 			(type default)
 		)
 		(uuid "c15037fe-824c-4a3a-af39-95cf3eb2fd3c")
+	)
+	(global_label "TFT_RESET"
+		(shape input)
+		(at 168.91 96.52 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2887af86-acaf-4e6a-bf7e-f8444c0c3e3e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 156.1883 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
 	)
 	(global_label "3.3V"
 		(shape input)
@@ -511,28 +535,6 @@
 		(uuid "2d07674f-ec86-4a8e-8df0-72d26504e952")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 159.4539 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "TFT_RESET"
-		(shape input)
-		(at 168.91 96.52 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "32353a87-a2f8-4da9-ae78-bfcad0af06e0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 156.1883 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -609,6 +611,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 152.4 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "59e0adb2-5a2a-47f7-b997-1972f283adf6")
+		(property "Reference" "#PWR02"
+			(at 152.4 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 152.4 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 152.4 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.4 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 152.4 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f572eab3-5d81-4e1b-a52b-706390abfc6f")
+		)
+		(instances
+			(project ""
+				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/6de349e7-ced3-4959-8be3-0b8312a7c7a3"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "ST7735 TFT:TFT LCD")
 		(at 177.8 87.63 0)
 		(unit 1)
@@ -617,24 +685,26 @@
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "4666c516-a332-4e6a-abf3-dd3e8f52cbbc")
-		(property "Reference" "U4"
-			(at 175.9585 67.31 0)
+		(uuid "c8e64a51-0884-4c63-8840-47896a02089e")
+		(property "Reference" "U2"
+			(at 184.15 86.3599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "TFT LCD"
-			(at 175.9585 69.85 0)
+			(at 184.15 88.8999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "ST7735:TFT LCD 1.8inch 128x160 w_ SD Card Slot"
+		(property "Footprint" ""
 			(at 144.78 110.236 0)
 			(do_not_autoplace yes)
 			(effects
@@ -783,100 +853,34 @@
 				(hide yes)
 			)
 		)
-		(pin ""
-			(uuid "65af8826-d8dc-4dce-ad8c-1fcd7ebe6725")
+		(pin "2"
+			(uuid "5f3f0436-5481-400a-b4c0-42e298b1bbf7")
 		)
-		(pin ""
-			(uuid "d6d3f0d0-1db4-40cf-aec0-10ca93b95ca9")
+		(pin "4"
+			(uuid "91da907f-5371-4840-8ab5-3380957241a1")
 		)
-		(pin ""
-			(uuid "9546d810-67e9-4b95-b1b5-7d5627bed854")
+		(pin "5"
+			(uuid "1efaad97-cc1f-4434-86e5-8540ee474cbf")
 		)
-		(pin ""
-			(uuid "9cd5087d-92ff-4cab-b157-ec5d1952344a")
+		(pin "6"
+			(uuid "5400e112-5823-4f1c-86e2-fd452646fe2d")
 		)
-		(pin ""
-			(uuid "0d84d9b1-9bc0-4928-8857-54bfe68928e3")
+		(pin "7"
+			(uuid "4c229364-44b2-4430-a033-3b81d3d64f7e")
 		)
-		(pin ""
-			(uuid "6e00f734-f6f9-4c4c-9645-b22f607f482b")
+		(pin "3"
+			(uuid "652ad535-c3eb-47e4-994b-9d8725f20262")
 		)
-		(pin ""
-			(uuid "f356fea0-cec1-40c7-a298-01f2f8686497")
-		)
-		(pin ""
-			(uuid "6b68a1a7-5e38-4c88-b9b7-238c968dcfab")
-		)
-		(instances
-			(project ""
-				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/6de349e7-ced3-4959-8be3-0b8312a7c7a3"
-					(reference "U4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 152.4 80.01 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "59e0adb2-5a2a-47f7-b997-1972f283adf6")
-		(property "Reference" "#PWR02"
-			(at 152.4 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 152.4 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 152.4 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 152.4 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
+		(pin "8"
+			(uuid "16df4c2c-f879-4fc2-adbe-5518d4d7ca07")
 		)
 		(pin "1"
-			(uuid "f572eab3-5d81-4e1b-a52b-706390abfc6f")
+			(uuid "1f618345-3f6d-4996-971a-32746125d7c7")
 		)
 		(instances
 			(project ""
 				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/6de349e7-ced3-4959-8be3-0b8312a7c7a3"
-					(reference "#PWR02")
+					(reference "U2")
 					(unit 1)
 				)
 			)
