@@ -20,6 +20,9 @@ Stats are persistant (saved to EEPROM)
 - KiCAD
 - Arduino IDE or PlatformIO
 
+## Additional Notes
+Decided to use the full esp32 dev kit for easy testing of new firmware/features.
+
 ## Demo
 
 No demo currently
