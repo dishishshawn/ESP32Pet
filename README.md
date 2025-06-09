@@ -23,6 +23,11 @@ Stats are persistant (saved to EEPROM)
 ## Additional Notes
 Decided to use the full esp32 dev kit for easy testing of new firmware/features.
 
+## Images
+![image](https://github.com/user-attachments/assets/b7a332ea-b05e-4412-bdfa-59347f2cfa1c)
+![image](https://github.com/user-attachments/assets/0574d9b9-fdb2-4872-8d04-eb26c7c4002a)
+
+
 ## Demo
 
 No demo currently
