@@ -1,12 +1,12 @@
 # ESP32PET
 
-An open-source Tamagotchi, built on an ESP32 with a ST7735 LCD and a physical buttons. 
-Digital pet, resembling me, responds to feeding, playing, and dressing up. 
-Stats are persistant (saved to EEPROM)
+An open-source Tamagotchi, built on an ESP32 with an ST7735 LCD and physical buttons. 
+A digital pet resembling me responds to feeding, playing, and dressing up. 
+Stats are persistent (saved to EEPROM)
 
 ## Features
 - Deep sleep (Battery powered use)
-- Three button UI (+ 1 for on and off)
+- Three-button UI (+ 1 for on and off)
 - Designed for portable use
 
 ## Hardware Requirements
