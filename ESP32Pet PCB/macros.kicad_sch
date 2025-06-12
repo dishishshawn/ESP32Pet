@@ -797,7 +797,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "58e37cdd-732b-406c-8729-c0a8d77a6cc2")
-		(property "Reference" "DOWN"
+		(property "Reference" "DOWN1"
 			(at 91.44 80.01 0)
 			(effects
 				(font
@@ -867,7 +867,7 @@
 		(instances
 			(project ""
 				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/59951854-b551-47f5-ac04-53031cec35b0"
-					(reference "DOWN")
+					(reference "DOWN1")
 					(unit 1)
 				)
 			)
@@ -1011,7 +1011,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b0146403-df77-41c8-a34f-19e57ea3f05b")
-		(property "Reference" "SELECT"
+		(property "Reference" "SELECT1"
 			(at 110.49 80.01 0)
 			(effects
 				(font
@@ -1081,7 +1081,7 @@
 		(instances
 			(project "ESP32Pet"
 				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/59951854-b551-47f5-ac04-53031cec35b0"
-					(reference "SELECT")
+					(reference "SELECT1")
 					(unit 1)
 				)
 			)
@@ -1097,7 +1097,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b61c99c5-8295-4c31-a561-42881cc35e2e")
-		(property "Reference" "UP"
+		(property "Reference" "UP1"
 			(at 128.27 80.01 0)
 			(effects
 				(font
@@ -1167,7 +1167,7 @@
 		(instances
 			(project "ESP32Pet"
 				(path "/397abc7c-300b-4d6f-9337-33290484b5ae/59951854-b551-47f5-ac04-53031cec35b0"
-					(reference "UP")
+					(reference "UP1")
 					(unit 1)
 				)
 			)
