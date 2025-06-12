@@ -37,7 +37,7 @@ No demo currently
 
 PCBWay sponsors 3D Printing and PCB assembly costs on this project during the prototyping phase!
 If you are interested in their awesome fabrication services please check them out.  They offer
-3D prototyping, PCB design, and assembly, as well as CNC metal fabrication.  Costs are reasonable and the quality is as good as it gets.  Thank you PCBWay for sponsoring us and other fun projects!
+3D prototyping, PCB design, and assembly, as well as CNC metal fabrication.  Costs are reasonable and the quality is as good as it gets.  Thank you, PCBWay, for sponsoring me!
 
 ## License
 
