@@ -32,6 +32,13 @@ Decided to use the full esp32 dev kit for easy testing of new firmware/features.
 
 No demo currently
 
+## Sponsorship
+![image](https://github.com/user-attachments/assets/751d8a4e-b912-4974-8fba-3a1d9f9affd4)
+
+PCBWay sponsors 3D Printing and PCB assembly costs on this project during the prototyping phase!
+If you are interested in their awesome fabrication services please check them out.  They offer
+3D prototyping, PCB design, and assembly, as well as CNC metal fabrication.  Costs are reasonable and the quality is as good as it gets.  Thank you PCBWay for sponsoring us and other fun projects!
+
 ## License
 
 MIT
