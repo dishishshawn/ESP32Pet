@@ -27,6 +27,8 @@ Decided to use the full esp32 dev kit for easy testing of new firmware/features.
 ![image](https://github.com/user-attachments/assets/b7a332ea-b05e-4412-bdfa-59347f2cfa1c)
 ![image](https://github.com/user-attachments/assets/0574d9b9-fdb2-4872-8d04-eb26c7c4002a)
 
+## Case (OnShape)
+https://cad.onshape.com/documents/7b0af2517bc8518bf7fb4dfa/w/fc1d8dcb5d67add2eca69795/e/ab74bcbcb7495b5b308ae66d
 
 ## Demo
 
